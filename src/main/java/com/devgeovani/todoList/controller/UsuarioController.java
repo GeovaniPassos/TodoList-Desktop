@@ -14,6 +14,9 @@ import com.devgeovani.todoList.model.UsuarioDTO;
 public class UsuarioController {
     public boolean login(String login, String senha){
         UsuarioDTO usuario = new UsuarioDTO();
+        usuario.setLogin(login);
+        usuario.setSenha(senha);
+        
         UsuarioDAO dao = new UsuarioDAO();
         return dao.autenticarUsuario(usuario);
     }

@@ -53,6 +53,11 @@ public class TelaLogin extends javax.swing.JFrame {
         btnSair = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         jLabel1.setText("Olá,");
@@ -176,8 +181,19 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
-        realizarLogin();
+        String login = lblLogin.getText();
+        String senha = new String(lblPassword.getPassword());
+        if (login.equals("") || senha.equals("")){
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
+        } else {
+            realizarLogin(login, senha);
+        }
+        
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments
@@ -234,11 +250,15 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField lblPassword;
     // End of variables declaration//GEN-END:variables
     
-    private void verificarConexao() throws Exception{
+    private void verificarConexao(){
         
-        if(Conexao.conectar() != null){
-            lblIconDb.setIcon(new javax.swing.ImageIcon("/home/geovani/NetBeansProjects/TodoList/src/main/java/com/devgeovani/todoList/resources/conn-database32px.png"));
-            JLMessageConDb.setText("Connected");
+        try {
+            if(Conexao.conectar() != null){
+                lblIconDb.setIcon(new javax.swing.ImageIcon("/home/geovani/NetBeansProjects/TodoList/src/main/java/com/devgeovani/todoList/resources/conn-database32px.png"));
+                JLMessageConDb.setText("Connected");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         lblNamePc.setText(pegarUsuarioSO());
@@ -277,17 +297,16 @@ public class TelaLogin extends javax.swing.JFrame {
         }
     }
     
-    public void realizarLogin(){
-        String login = lblLogin.getText();
-        String senha = new String(lblPassword.getPassword());
-        
+    public void realizarLogin(String login, String senha){
+
         UsuarioController controller = new UsuarioController();
         boolean autenticacao = controller.login(login, senha);
         
         if(autenticacao) {
             JOptionPane.showMessageDialog(this, "Login bem-sucedido!");
             dispose();
-            new TelaPrincipal();
+            new TelaPrincipal().setVisible(true);
+            
         } else {
             JOptionPane.showMessageDialog(this, "Login ou senha inválidos!", "Erro", JOptionPane.ERROR_MESSAGE);
         }

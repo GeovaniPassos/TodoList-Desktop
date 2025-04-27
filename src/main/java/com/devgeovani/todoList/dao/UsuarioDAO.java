@@ -19,7 +19,7 @@ public class UsuarioDAO {
         
         try (Connection conn = Conexao.conectar()){
             
-            String sql = "INSERT INTO usuario (login, senha) VALUES (?,?)";
+            String sql = "INSERT INTO usuarios (login, senha) VALUES (?,?)";
             
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, usuario.getLogin());
