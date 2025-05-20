@@ -4,6 +4,7 @@ com/devgeovani/todoList/view/TelaConfig$6.class
 com/devgeovani/todoList/controller/UsuarioController.class
 com/devgeovani/todoList/view/TelaConfig$2.class
 com/devgeovani/todoList/view/TelaPrincipal.class
+com/devgeovani/todoList/view/TelaConfig$8.class
 com/devgeovani/todoList/dao/Conexao.class
 com/devgeovani/todoList/view/TelaLogin$3.class
 com/devgeovani/todoList/dao/UsuarioDAO.class

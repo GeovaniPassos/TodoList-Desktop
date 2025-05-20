@@ -29,6 +29,4 @@ public class UsuarioDTO {
         this.senha = senha;
     }
     
-    
-    
 }
